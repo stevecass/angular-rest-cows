@@ -1,0 +1,31 @@
+form#edit_cow {
+  padding: 20px;
+  border: 1px solid gray;
+  width: 350px;
+  margin: 10px;
+}
+form#edit_cow label {
+  float: left;
+  display: inline-block;
+  width:100px;
+}
+
+form#edit_cow button {
+  margin-top: 10px;
+}
+
+form#edit_cow input {
+  float: left;
+  display: inline-block;
+  width:100px;
+}
+
+th {
+  text-align:left;
+}
+td.cow_name, td.cow_breed{
+  width:100px;
+}
+td.cow_age {
+  text-align: right;
+}
