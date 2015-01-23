@@ -13,27 +13,37 @@
       <div id="content" ng-controller="RestController">
         <h1>Cows rest demo</h1>
 
-        <form id="edit_cow" ng-show="edit_cow">
-          <label>Name</label>  <input ng-model="edit_cow.name"><br>
-          <label>Breed</label> <input ng-model="edit_cow.breed"><br>
-          <label>Age</label>   <input ng-model="edit_cow.age"><br>
-          <button ng-click="saveEditedCow()">Save cow</button>
-        </form>
+        <div>
 
-        <table>
+          <div id="data_table">
+            <table id="cows_table">
+              <tr>
+                <th class="cow_name">Name</th>
+                <th class="cow_breed">Breed</th>
+                <th>Age</th>
+              </tr>
+              <tr ng-repeat="cow in cows">
+                <td class="cow_name"> <a ng-click="copyThisCowForEdit(cow)" ng-bind="cow.name"></a></td>
+                <td class="cow_breed" ng-bind="cow.breed"></td>
+                <td class="cow_age"   ng-bind="cow.age"></td>
+                <td class="cow_age"><a ng-click="deleteCow(cow)">Delete</a></td>
+              </tr>
+            </table>
+          </div>
 
-          <tr>
-            <th>Name</th>
-            <th>Breed</th>
-            <th>Age</th>
-          </tr>
+          <div id="edit_form" ng-show="cows">
+            <form id="edit_cow">
+              <h3 ng-bind="saveFormLabel()">Hello</h3>
+              <label>Name</label>  <input ng-model="edit_cow.name"><br>
+              <label>Breed</label> <input ng-model="edit_cow.breed"><br>
+              <label>Age</label>   <input ng-model="edit_cow.age"><br>
+              <button ng-click="saveCowFromForm()" ng-bind="saveFormLabel()"></button>
+              <button ng-click="resetCowForm()">Reset form</button>
+            </form>
+          </div>
 
-          <tr ng-repeat="cow in cows" ng-click="copyThisCowForEdit(cow)">
-            <td class="cow_name"  ng-bind="cow.name"></td>
-            <td class="cow_breed" ng-bind="cow.breed"></td>
-            <td class="cow_age"   ng-bind="cow.age"></td>
-          </tr>
-        </table>
+
+        </div>
 
       </div>
 

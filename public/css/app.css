@@ -1,8 +1,16 @@
+div#content {
+  margin: 0 10px;
+}
+div#edit_form, div#data_table {
+  float:left;
+  width: 400px;
+}
+
 form#edit_cow {
   padding: 20px;
   border: 1px solid gray;
   width: 350px;
-  margin: 10px;
+  margin: 10px 0;
 }
 form#edit_cow label {
   float: left;
@@ -20,12 +28,15 @@ form#edit_cow input {
   width:100px;
 }
 
+table#cows_table {
+  padding-top: 10px;
+}
 th {
   text-align:left;
 }
-td.cow_name, td.cow_breed{
-  width:100px;
+.cow_name, .cow_breed{
+  width:150px;
 }
-td.cow_age {
+.cow_age {
   text-align: right;
 }
