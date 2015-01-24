@@ -4,25 +4,31 @@ angular.module('anguCows').factory('Cow', function($resource){
   // This creates a minimal service that returns the cow resource
   // as 'Cow'
   return $resource('/cows/:id', { id: '@id' }, {
-    // Add the PATCH method for update that ng-resource doesn't supply be default
+    // Add the PATCH method for update. ng-resource by default
+    // supplies only a save() which maps to a POST. We use that for 
+    // create and use this update() for updates.
     update: {
       method: 'PATCH', // this method issues a PATCH request
       url: '/cows/:id'
     }
   });  
-  //return $resource('/cows/:id');
 });
 
+// Now declare a controller in the module. We declare our dependency on the Cow 
+// service created above. 
 angular.module('anguCows').controller('RestController', ['Cow', '$scope', 
 
   function(Cow, $scope){
     $scope.testData = "This is test data";
 
-    // Note we use the return value in the callback. This seems weird.
-    // But when the callback runs the promise is resolved, so at that
+    // Note we use the return value in the callback. This seems weird at first sight.
+
+    // When the callback runs the promise has been resolved, so at that
     // point we can use its data on the return value to set data on the scope.
-    // Look at what gets logged. It's an "array-like" object that also has a 
-    // handle to the promise.
+
+    // Look at what gets console logged here. It's an "array-like" object that also 
+    // has a handle to the promise.
+
     // So we can use it directly in the ng-repeat but it's not a vanilla array.
     $scope.loadCows = function() {
       var cows = Cow.query(function() {
@@ -52,7 +58,7 @@ angular.module('anguCows').controller('RestController', ['Cow', '$scope',
       return result; 
     }
 
-    var replaceCow = function(cow) {
+    var replaceCowInList = function(cow) {
       var index = findCow(cow);
       if (index > -1) {
         var result = $scope.cows.slice(0, index);
@@ -65,7 +71,7 @@ angular.module('anguCows').controller('RestController', ['Cow', '$scope',
     var saveEditedCow = function() {
       var retval = Cow.update($scope.edit_cow);
       retval.$promise.then(function(data){
-        replaceCow(data);
+        replaceCowInList(data);
         $scope.edit_cow = null;
       })
     }
